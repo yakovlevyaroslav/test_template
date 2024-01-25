@@ -29,7 +29,7 @@ function removeActiveFormOtherItems(itemNotActive) {
   // Получаем соседние элементы
   var siblings = Array.from(itemNotActive.parentNode.children);
 
-  // Удаляем класс "abs" у соседних элементов
+  // Удаляем класс "test-form__item--active" у соседних элементов
   siblings.forEach(function(sibling) {
     if (sibling !== itemNotActive) {
       sibling.classList.remove('test-form__item--active');
@@ -39,19 +39,26 @@ function removeActiveFormOtherItems(itemNotActive) {
 
 testFormBtn.forEach(function(elem) {
   elem.addEventListener('click', function() {
-    let activeItem = this.closest('.test-form').querySelector('.test-form__item--active')
-    let activeItemVariant = activeItem.getAttribute('data-variant')
 
-    arrayAnswers.push(activeItemVariant)
-
-    let parentTestBlock = this.closest('.test-block--active') 
-    parentTestBlock.classList.remove('test-block--active')
-
-    if (parentTestBlock.nextElementSibling) {
+    if(this.classList.contains('test-form__button--lego')) {
+      let parentTestBlock = this.closest('.test-block--active') 
+      parentTestBlock.classList.remove('test-block--active')
       parentTestBlock.nextElementSibling.classList.add('test-block--active')
     } else {
-      resultBlock.classList.add('result-block--visible')
-      howMuchZnach(arrayAnswers)
+      let activeItem = this.closest('.test-form').querySelector('.test-form__item--active')
+      let activeItemVariant = activeItem.getAttribute('data-variant')
+  
+      arrayAnswers.push(activeItemVariant)
+  
+      let parentTestBlock = this.closest('.test-block--active') 
+      parentTestBlock.classList.remove('test-block--active')
+  
+      if (parentTestBlock.nextElementSibling) {
+        parentTestBlock.nextElementSibling.classList.add('test-block--active')
+      } else {
+        resultBlock.classList.add('result-block--visible')
+        howMuchZnach(arrayAnswers)
+      }
     }
   })
 })
@@ -82,6 +89,6 @@ let howMuchZnach = function(array) {
   console.log("Итоговый массив:", array);
   console.log("Самое часто встречающееся значение:", maxValue);
   console.log("Количество встреч:", maxCount);
-  console.log();
+
   resultBlock.querySelector('.result-open--' + maxValue).classList.add('result-open--visible')
 }

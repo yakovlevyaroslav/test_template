@@ -68,7 +68,7 @@ body {
 }
 
 .test-block {
-  max-width: 650px;
+  max-width: 660px;
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 6px 16px rgba(0,0,0,.1);
   border-radius: 8px;
@@ -82,7 +82,7 @@ body {
 
 .test-image {
   width: 100%;
-  max-height: 350px;
+  max-height: 370px;
   object-fit: cover;
 }
 
@@ -175,7 +175,9 @@ body {
 
         &::after {
           content: '';
+          min-width: 16px;
           width: 16px;
+          min-height: 16px;
           height: 16px;
           background-color: #84dca5;
           border-radius: 18px;
@@ -186,7 +188,9 @@ body {
     }
 
     &-radio {
+      min-width: 24px;
       width: 24px;
+      min-height: 24px;
       height: 24px;
       border: 1px solid $gray-bar;
       border-radius: 12px;
@@ -199,7 +203,33 @@ body {
       font-size: 16px;
     }
   }
+
+  &__spoiler {
+    font-weight: 500;
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    &-title {
+      cursor: pointer;
+      list-style: none;
+      transition: text-decoration .3s;
+      font-style: italic;
+
+      &::marker {
+        display: none;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__text {
+    font-style: italic;
+  }
 }
+
 
 .result-block {
   @extend .test-block;
@@ -215,5 +245,48 @@ body {
 
   &--visible {
     display: block;
+  }
+
+  .test-form__text {
+    font-style: normal;
+  }
+}
+
+details {
+  list-style: none;
+}
+
+// Socials
+
+.result-block__social {
+  padding: 0 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+
+  &-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    
+    &--tg {
+      background-size: 30px;
+      background-image: url('../assets/images/icon-tg.svg');
+      background-color: #229ED9;
+      margin-right: 10px;
+    }
+    
+    &--vk {
+      background-size: 30px;
+      background-image: url('../assets/images/icon-vk.svg');
+      background-color: #0077FF;
+    }
+  }
+
+  &-title {
+    min-width: 100%;
+    margin-bottom: 10px;
   }
 }
