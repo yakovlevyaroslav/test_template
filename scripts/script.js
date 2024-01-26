@@ -3,7 +3,6 @@
   let testFormActive = document.querySelector('.test-form--active')
 
   let testFormItem = document.querySelectorAll('.test-form__item')
-  let testFormItemActive = document.querySelector('.test-form__item--active')
 
   let testFormBtn = document.querySelectorAll('.test-form__button')
 
@@ -20,6 +19,9 @@
       if(!testFormIn.classList.contains('test-form__button--visible')) {
         testFormIn.classList.add('test-form__button--visible')
       }
+
+      let btnInThisTestForm = this.closest('.test-form').querySelector('.test-form__button')
+      btnInThisTestForm.scrollIntoView({behavior: "smooth"});
     })
   })
 // });
@@ -92,3 +94,21 @@ let howMuchZnach = function(array) {
 
   resultBlock.querySelector('.result-open--' + maxValue).classList.add('result-open--visible')
 }
+
+document.querySelector('.test-form__button--re').addEventListener('click', function() {
+  arrayAnswers.length = 0;
+  let testFormItemActive = document.querySelectorAll('.test-form__item--active')
+
+  let parentTestBlock = this.closest('.result-block--visible') 
+  parentTestBlock.classList.remove('result-block--visible')
+
+  let testFormFirstQuestion = document.querySelector('.test-block--1')
+  testFormFirstQuestion.classList.add('test-block--active')
+
+  let resultBlockVisible = document.querySelector('.result-open--visible')
+  resultBlockVisible.classList.remove('result-open--visible')
+
+  testFormItemActive.forEach(function(el) {
+    el.classList.remove('test-form__item--active')
+  })
+})

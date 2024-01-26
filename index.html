@@ -39,7 +39,7 @@
       </div>
 
       <!-- 1 -->
-      <div class="test-block">
+      <div class="test-block test-block--1">
         <img class="test-image" src="./assets/images/cover-min.jpg" alt="Обложка для теста">
         <div class="test-content">
           <div class="test-progress">
@@ -309,12 +309,12 @@
               </div>
             </div>
 
-            <details class="test-form__spoiler">
-              <summary class="test-form__spoiler-title">Дисклеймер после вопроса:</summary>
+            <div class="test-form__spoiler">
+              <div class="test-form__spoiler-title">Дисклеймер после вопроса:</div>
               <p class="test-form__spoiler-text">
                 Обязательно проверяйте контакты на актуальность. Если журналист игнорирует вас две недели, возможно, он уже не работает в СМИ. 
               </p>
-            </details>
+            </div>
   
             <button class="test-form__button">Отправить</button>
           </div>
@@ -463,8 +463,10 @@
 
     <div class="container">
       <div class="result-block">
+      <!-- <div class="result-block--visible result-block"> -->
         <!-- 1 -->
         <div class="result-open result-open--1">
+        <!-- <div class="result-open--visible result-open result-open--1"> -->
           <img class="test-image" src="./assets/images/result-1-min.jpg" alt="Изображение для результата 1">
 
           <div class="test-content">
@@ -503,12 +505,16 @@
           </div>
         </div>
 
-        <div class="result-block__social">
-          <div class="result-block__social-title">
-            Поделиться:
+        <div class="test-content">
+          <button class="test-form__button--re test-form__button--re--visible">Пройти заного</button>
+
+          <div class="result-block__social">
+            <div class="result-block__social-title">
+              Поделиться:
+            </div>
+            <a class="result-block__social-btn result-block__social-btn--tg" href="https://telegram.me/share/url?url=https://journal.prhub.moscow/jour-from-hell&text="></a>
+            <a class="result-block__social-btn result-block__social-btn--vk" href="https://vk.com/share.php?url=https://journal.prhub.moscow/jour-from-hell" target="_blank"></a>
           </div>
-          <a class="result-block__social-btn result-block__social-btn--tg" href="https://telegram.me/share/url?url=https://journal.prhub.moscow/jour-from-hell&text="></a>
-          <a class="result-block__social-btn result-block__social-btn--vk" href="https://vk.com/share.php?url=https://journal.prhub.moscow/jour-from-hell" target="_blank"></a>
         </div>
       </div>
     </div>

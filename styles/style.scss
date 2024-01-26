@@ -65,6 +65,7 @@ body {
 
 .test {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .test-block {
@@ -222,11 +223,30 @@ body {
       &:hover {
         text-decoration: underline;
       }
+
+
     }
   }
 
   &__text {
     font-style: italic;
+  }
+}
+
+div.test-form__spoiler {
+  &-title {
+    cursor: default;
+    list-style: none;
+    transition: text-decoration .3s;
+    font-style: italic;
+
+    &::marker {
+      display: none;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -236,6 +256,10 @@ body {
 
   &--visible {
     display: block;
+  }
+
+  .test-content {
+    padding-top: 0;
   }
 }
 
@@ -259,7 +283,7 @@ details {
 // Socials
 
 .result-block__social {
-  padding: 0 20px 24px;
+  padding-bottom: 12px;
   display: flex;
   flex-wrap: wrap;
 
@@ -289,4 +313,9 @@ details {
     min-width: 100%;
     margin-bottom: 10px;
   }
+}
+
+.test-form__button--re {
+  @extend .test-form__button;
+  display: block;
 }
