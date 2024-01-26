@@ -238,6 +238,9 @@ div.test-form__spoiler-title:hover {
 .result-open .test-form__text {
   font-style: normal;
 }
+.result-open .test-image {
+  margin-bottom: 12px;
+}
 
 details {
   list-style: none;
