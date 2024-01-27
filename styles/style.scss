@@ -43,8 +43,8 @@ button {
 
 body {
   font-family: TTLake, sans-serif;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: -0.2px;
   color: $black-text;
   overflow-x: hidden;
@@ -125,7 +125,7 @@ body {
 
 .test-form {
   &__title {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 500;
     margin-bottom: 20px;
   }
@@ -137,7 +137,7 @@ body {
     border-radius: 8px;
     color: white;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 17px;
     padding: 12px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 8px 20px rgba(0,0,0,.1);
@@ -200,13 +200,11 @@ body {
     }
 
     &-label {
-      font-weight: 500;
-      font-size: 16px;
+      font-size: 17px;
     }
   }
 
   &__spoiler {
-    font-weight: 500;
     margin-top: 12px;
     margin-bottom: 12px;
 
@@ -215,6 +213,7 @@ body {
       list-style: none;
       transition: text-decoration .3s;
       font-style: italic;
+      font-weight: 500;
 
       &::marker {
         display: none;
@@ -265,7 +264,7 @@ div.test-form__spoiler {
 
 .result-open {
   display: none;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 
   &--visible {
     display: block;
@@ -276,7 +275,7 @@ div.test-form__spoiler {
   }
 
   .test-image {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
 }
 
@@ -322,4 +321,5 @@ details {
 .test-form__button--re {
   @extend .test-form__button;
   display: block;
+  margin-bottom: 20px;
 }

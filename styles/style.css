@@ -38,8 +38,8 @@ button {
 }
 body {
   font-family: TTLake, sans-serif;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: -0.2px;
   color: #343434;
   overflow-x: hidden;
@@ -114,7 +114,7 @@ body {
 }
 
 .test-form__title {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 500;
   margin-bottom: 20px;
 }
@@ -125,7 +125,7 @@ body {
   border-radius: 8px;
   color: white;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 17px;
   padding: 12px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -180,11 +180,9 @@ body {
   transition: border 0.3s;
 }
 .test-form__item-label {
-  font-weight: 500;
-  font-size: 16px;
+  font-size: 17px;
 }
 .test-form__spoiler {
-  font-weight: 500;
   margin-top: 12px;
   margin-bottom: 12px;
 }
@@ -195,6 +193,7 @@ body {
   transition: text-decoration 0.3s;
   transition: text-decoration 0.3s, -webkit-text-decoration 0.3s;
   font-style: italic;
+  font-weight: 500;
 }
 .test-form__spoiler-title::marker {
   display: none;
@@ -230,7 +229,7 @@ div.test-form__spoiler-title:hover {
 
 .result-open {
   display: none;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 .result-open--visible {
   display: block;
@@ -239,7 +238,7 @@ div.test-form__spoiler-title:hover {
   font-style: normal;
 }
 .result-open .test-image {
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 details {
@@ -277,4 +276,5 @@ details {
 
 .test-form__button--re {
   display: block;
+  margin-bottom: 20px;
 }/*# sourceMappingURL=style.css.map */
