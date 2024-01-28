@@ -1,4 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
   let testForm = document.querySelectorAll('.test-form')
   let testFormActive = document.querySelector('.test-form--active')
 

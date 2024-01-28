@@ -1,0 +1,896 @@
+<style>
+  /* base */
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  button {
+    background-color: transparent;
+    border: none;
+  }
+  
+  body {
+    font-family: TTLake, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+    color: #343434;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    margin: auto;
+    width: 100%;
+    max-width: 1068px;
+    padding: 0;
+  }
+  @media (min-width: 320px) {
+    .container {
+      padding: 0 5px;
+    }
+  }
+  
+  .test {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .test-block, .result-block {
+    max-width: 660px;
+    margin: 0 auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 6px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: none;
+  }
+  .test-block--active {
+    display: block;
+  }
+  
+  .test-image {
+    width: 100%;
+    max-height: 370px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  
+  .test-content {
+    padding: 24px 20px 12px;
+  }
+  
+  .test-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .test-progress__title {
+    text-transform: uppercase;
+    color: #909090;
+    margin-right: 15px;
+  }
+  .test-progress__title-num {
+    color: #343434;
+    font-weight: 500;
+    padding: 0 5px;
+  }
+  .test-progress__bar {
+    height: 6px;
+    flex-grow: 1;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #e0e1e2;
+  }
+  .test-progress__bar__done {
+    width: 0%;
+    background-color: #42c372;
+    height: 6px;
+  }
+  
+  .test-form__title {
+    font-size: 21px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .test-form__button, .test-form__button--re {
+    display: none;
+    background-color: #42c372;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 17px;
+    padding: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    margin-bottom: 12px;
+  }
+  .test-form__button:hover, .test-form__button--re:hover {
+    background-color: #51c87e;
+  }
+  .test-form__button--visible {
+    display: block;
+  }
+  .test-form__item {
+    border: 1px solid #abadaf;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+  }
+  .test-form__item:hover {
+    background-color: #f2f6fa;
+  }
+  .test-form__item--active {
+    background-color: #f2f6fa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  .test-form__item--active .test-form__item-radio {
+    border: 1px solid #42c372;
+  }
+  .test-form__item--active .test-form__item-radio::after {
+    content: "";
+    min-width: 16px;
+    width: 16px;
+    min-height: 16px;
+    height: 16px;
+    background-color: #84dca5;
+    border-radius: 18px;
+    display: block;
+    transform: translate(3px, 3px);
+  }
+  .test-form__item-radio {
+    min-width: 24px;
+    width: 24px;
+    min-height: 24px;
+    height: 24px;
+    border: 1px solid #abadaf;
+    border-radius: 12px;
+    margin-right: 12px;
+    transition: border 0.3s;
+  }
+  .test-form__item-label {
+    font-size: 17px;
+  }
+  .test-form__spoiler {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .test-form__spoiler-title {
+    cursor: pointer;
+    list-style: none;
+    transition: -webkit-text-decoration 0.3s;
+    transition: text-decoration 0.3s;
+    transition: text-decoration 0.3s, -webkit-text-decoration 0.3s;
+    font-style: italic;
+    font-weight: 500;
+  }
+  .test-form__spoiler-title::marker {
+    display: none;
+  }
+  .test-form__spoiler-title:hover {
+    text-decoration: underline;
+  }
+  .test-form__text {
+    font-style: italic;
+  }
+  
+  div.test-form__spoiler-title {
+    cursor: default;
+    list-style: none;
+    transition: -webkit-text-decoration 0.3s;
+    transition: text-decoration 0.3s;
+    transition: text-decoration 0.3s, -webkit-text-decoration 0.3s;
+    font-style: italic;
+  }
+  div.test-form__spoiler-title::marker {
+    display: none;
+  }
+  div.test-form__spoiler-title:hover {
+    text-decoration: none;
+  }
+  
+  .result-block--visible {
+    display: block;
+  }
+  .result-block .test-content {
+    padding-top: 0;
+  }
+  
+  .result-open {
+    display: none;
+    margin-bottom: 8px;
+  }
+  .result-open--visible {
+    display: block;
+  }
+  .result-open .test-form__text {
+    font-style: normal;
+  }
+  .result-open .test-image {
+    margin-bottom: 20px;
+  }
+  
+  details {
+    list-style: none;
+  }
+  
+  .result-block__social {
+    padding-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .result-block__social-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+  }
+  .result-block__social-btn--tg {
+    background-size: 30px;
+    background-image: url("https://static.tildacdn.com/tild3839-3062-4230-b737-356662383066/icon-tg.svg");
+    background-color: #229ED9;
+    margin-right: 10px;
+  }
+  .result-block__social-btn--vk {
+    background-size: 30px;
+    background-image: url("https://static.tildacdn.com/tild6233-3838-4339-b137-633565613265/icon-vk.svg");
+    background-color: #0077FF;
+  }
+  .result-block__social-title {
+    min-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .test-form__button--re {
+    display: block;
+    margin-bottom: 20px;
+  }
+  </style>
+  
+  
+  
+    <section class="test">
+      <div class="container">
+        <div class="test-block test-block--active">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Тест: сможете ли вы победить журналиста из ада?
+              </div>
+  
+              <div class="test-form__text">
+                Кто прошёл через адского журналиста и выпустил релиз, тот не боится ничего. Потому что порой журы проявляют изощрённость, достойную инквизиции.
+                <br> <br>
+                Но есть те, кто научился избегать хитрых журналистских уловок и добиваться публикаций. Посмотрим, сваритесь ли вы в кипящем котле адского журналиста или покорите его дьявольское сердце? Вперёд, к вопросам!
+              </div>
+  
+              <details class="test-form__spoiler">
+                <summary class="test-form__spoiler-title">Дисклеймер...</summary>
+                <p class="test-form__spoiler-text">
+                  И помните, что наш тест шуточный. По опыту знаем, что большинство журналистов — нормальные ребята. А материалы пиарщиков не всегда бывают актуальными и соответствуют политике издания — тогда отказывают по объективным причинам.
+                </p>
+              </details>
+  
+              <button class="test-form__button test-form__button--lego test-form__button--visible">Приступим!</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 1 -->
+        <div class="test-block test-block--1">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">1</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 11%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы присылаете журналисту свой пресс-релиз, на что он отвечает: «Я бы такое не стал публиковать у себя. Ты бы стал?»
+                <br> <br>
+                Что ответить:
+              </div>
+  
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Да, наверное, не стал бы.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Спасибо за вопрос) Да, сейчас есть над чем поработать, но инфоповод всё равно очень крутой, на мой взгляд. 
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Да! Ещё бы и спецпроект под это сделал: тема горящая, скоро все поднимут шумиху. Тебе предлагаю первому, но решай сам.
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 2 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">2</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 22%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы написали журналистке в личку в телеграм. Она ответила. Но совсем не то, что вы ожидали: «Разве я где-то указывала, что можно писать мне лично?»
+                <br> <br>
+                Что напишете:
+              </div>
+  
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Не хотел вторгаться в ваше личное пространство, но именно этот номер указан для связи на сайте издания. Подскажите, пожалуйста, в каком мессенджере и с кем я могу продолжить коммуникацию?
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Ой, извините. А кому мне можно написать?
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Этот номер указан на сайте издания: написано, что по вопросам сотрудничества нужно писать вам. Это актуальные данные?
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 3 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">3</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 33%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы получили фидбек от журналиста: «У этого материала нет никакой практической пользы».
+                <br> <br>
+                Что скажете:
+              </div>
+  
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Понял тебя. Немного переработаю материал, чтобы было видно пользу. Потому что она там есть.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Я бы не стал тратить твоё время, если бы пользы не было. Вот смотри…
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Понял, не буду больше тревожить.
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 4 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">4</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 44%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы две недели обсуждаете с журналистом выход релиза, а от него приходит такое сообщение: «Не надо меня доставать».
+                <br> <br>
+                Как на это ответить:
+              </div>
+  
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Возможно, я действительно настойчивый, но это не попытка надоесть. Для меня важно закончить то, что начато, и я получил на это ваше согласие.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Да никто тебя не достаёт! Можно подумать, мне больше всех надо.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Совсем не планировал) Прошу прощения, если показался настойчивым. Ты изначально согласился сотрудничать, а я хочу довести вопрос до финала. Подскажи, когда получится вернуться с фидбеком?
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 5 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">5</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 55%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы прислали новость в редакцию и хотите узнать, когда её опубликуют. Журналист не хочет включать её в повестку, потому что «вы пытаетесь создать новость из тухлого повода, она никому не нужна».
+                <br> <br>
+                Как убедить его передумать:
+              </div>
+  
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  На самом деле, так можно сказать почти обо всех новостях. Предлагаю посмотреть под другим углом: это эксклюзивная информация от ключевого игрока рынка, которую мы предлагаем только тебе.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  В издании Х мне говорили то же самое о дошике. А потом эта новость разошлась по всей стране. Предлагаю усилить этот инфоповод с помощью данных соцопроса. Что думаешь?
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Это очень важная для нашей компании новость…
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 6 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">6</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 66%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вот уже вторую неделю вас упорно игнорирует журналист. И тут на ваше сообщение наконец приходит ответ: «Я не хочу с вами общаться, потому что не вижу в этом никакой пользы».
+                <br> <br>
+                Попробуем достучаться до журналиста:
+              </div>
+  
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Мне жаль, что сложилось такое представление. У нас недавно выходил комментарий в издании Х. На него ссылались, в том числе, «Ведомости» и «Коммерсантъ». В любом случае будем на связи, чтобы быть полезными друг другу.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Очень жаль, что вы её не видите.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Можно узнать причину?) Изначально мне показалось, что я могу рассчитывать на конструктивный диалог.
+                </div>
+              </div>
+  
+              <div class="test-form__spoiler">
+                <p class="test-form__spoiler-text">
+                  Обязательно проверяйте контакты на актуальность. Если журналист игнорирует вас две недели, возможно, он уже не работает в СМИ. 
+                </p>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 7 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">7</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 77%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вам нужно срочно разместить новость в СМИ. Журналист настаивает на том, что «в семь утра в пятницу она нафиг никому не нужна». 
+                <br> <br>
+                Попробуем доказать, что она должна выйти именно в это время:
+              </div>
+  
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Не вопрос, предлагаю выпустить её в пятницу в 9 утра ― как раз в это время люди залипают в новости.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  В пятницу в семь утра люди обычно едут на работу и читают/слушают новости. У нас интересная тема — как раз чтобы обсудить её за утренним кофе с коллегами.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Но потом для нас будет поздно…
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 8 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">8</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 88%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Журналист согласен разместить ваш материал, но кормит завтраками: «Можно, но не сейчас. Прямо сейчас жуткий аврал».
+                <br> <br>
+                Что скажем, чтобы новость разместили:
+              </div>
+  
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Сориентируете примерно по срокам публикации? Тема горячая, её прямо сейчас все обсуждают. 
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  А когда можно о себе напомнить? Материал полностью соответствует редполитике издания. Тема «горячая». Чем скорее разместишь, тем лучше для издания.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Аврал 100% будет, если конкуренты напечатают эту новость раньше вас. 
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- 9 -->
+        <div class="test-block">
+          <img class="test-image" src="https://thumb.tildacdn.com/tild6233-3165-4632-a336-396665633939/-/format/webp/cover-min.jpg" alt="Обложка для теста">
+          <div class="test-content">
+            <div class="test-progress">
+              <div class="test-progress__title">
+                Вопрос <span class="test-progress__title-num">9</span> из <span class="test-progress__title-num">9</span>
+              </div>
+              <div class="test-progress__bar">
+                <div class="test-progress__bar__done" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="test-form">
+    
+              <div class="test-form__title">
+                Вы пишете журналисту с крутой новостью, а в ответ: «Это не имеет никакого отношения к новостям. Вам надо в отдел рекламы».
+                <br> <br>
+                Пытаемся получить публикацию на некоммерческой основе:
+              </div>
+  
+              <div class="test-form__item" data-variant="1">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  А телефончик отдела рекламы не подскажете?
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="3">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Не соглашусь. Это материал о куриных яйцах — вы слышали, что с ними происходит? Я предлагаю вам статью на злободневную тему с комментариями эксперта. Кажется, это может быть интересно вашим читателям.
+                </div>
+              </div>
+    
+              <div class="test-form__item" data-variant="2">
+                <div class="test-form__item-radio"></div>
+                <div class="test-form__item-label">
+                  Не буду заливать вам про резонанс. Просто покажу отчёт аналитического центра, где виден масштаб проблемы, которую наша компания в состоянии решить.
+                </div>
+              </div>
+    
+              <button class="test-form__button">Отправить</button>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="container">
+        <div class="result-block">
+          <!-- 1 -->
+          <div class="result-open result-open--1">
+            <img class="test-image" src="https://thumb.tildacdn.com/tild3333-3264-4366-b963-333035356461/-/format/webp/result-1-min.jpg" alt="Изображение для результата 1">
+  
+            <div class="test-content">
+              <div class="test-form__title">
+                Горящий в адском котле
+              </div>
+              <div class="test-form__text">
+                Это фиаско, братан. Журналисты из ада уже разжигают костёр под вашим персональным котлом. Они придираются к каждому слову в пресс-релизе, игнорируют сообщения и дожидаются, пока от отчаяния у вас закипит мозг. Но всё можно исправить: следите за новостями в телеграм-канале <a target="_blank" href="https://t.me/+RTMOZBFt-yZlZWYy"><a target="_blank" href="https://t.me/+RTMOZBFt-yZlZWYy">«Журнал Пиархаба»</a></a>, и да пребудет с вами дружба со всеми журналистами!
+              </div>
+            </div>
+          </div>
+          <!-- 2 -->
+          <div class="result-open result-open--2">
+            <img class="test-image" src="https://thumb.tildacdn.com/tild3866-6335-4163-a234-633733636635/-/format/webp/result-2-min.jpg" alt="Изображение для результата 2">
+  
+            <div class="test-content">
+              <div class="test-form__title">
+                Отважный исследователь преисподней
+              </div>
+              <div class="test-form__text">
+                Неплохо, коллега! Огонь красноречия выводит вас победителем из кромешного ада, и тогда журналисты охотно публикуют ваши пресс-релизы. Но иногда адский журналист ловко манипулирует вами, кормит завтраками и не выходит на связь. Немного прокачать скилы — и ваши инфоповоды будут на первых полосах авторитетных изданий. Сделать это легко на канале <a target="_blank" href="https://t.me/+RTMOZBFt-yZlZWYy">«Журнал Пиархаба»</a>.
+              </div>
+            </div>
+          </div>
+          <!-- 3 -->
+          <div class="result-open result-open--3">
+            <img class="test-image" src="https://thumb.tildacdn.com/tild3536-6534-4132-b834-383833333561/-/format/webp/result-3-min.jpg" alt="Изображение для результата 3">
+  
+            <div class="test-content">
+              <div class="test-form__title">
+                Покоритель дьявольских сердец
+              </div>
+              <div class="test-form__text">
+                Респект! Вы умеете заглянуть в любую душу и найти подход даже к исчадиям ада. Стоит вам написать журналисту, как он готовит первую полосу для вашего пресс-релиза. В каждом СМИ у вас есть свой жур, готовый опубликовать новость даже в 6 утра. Но так может быть не всегда, поэтому не забывайте прокачивать скилы. Канал <a target="_blank" href="https://t.me/+RTMOZBFt-yZlZWYy">«Журнал Пиархаба»</a> в помощь.
+              </div>
+            </div>
+          </div>
+  
+          <div class="test-content">
+            <button class="test-form__button--re test-form__button--re--visible">Пройти заново</button>
+  
+            <div class="result-block__social">
+              <div class="result-block__social-title">
+                Поделиться:
+              </div>
+              <a class="result-block__social-btn result-block__social-btn--tg" href="https://telegram.me/share/url?url=https://journal.prhub.moscow/jour-from-hell&text="></a>
+              <a class="result-block__social-btn result-block__social-btn--vk" href="https://vk.com/share.php?url=https://journal.prhub.moscow/jour-from-hell" target="_blank"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+          let testForm = document.querySelectorAll('.test-form')
+    let testFormActive = document.querySelector('.test-form--active')
+  
+    let testFormItem = document.querySelectorAll('.test-form__item')
+  
+    let testFormBtn = document.querySelectorAll('.test-form__button')
+  
+    let resultBlock = document.querySelector('.result-block')
+  
+    let arrayAnswers = []
+  
+    testFormItem.forEach(function(elem) {
+      elem.addEventListener('click', function() {
+        this.classList.add('test-form__item--active')
+        removeActiveFormOtherItems(this)
+  
+        testFormIn = this.closest('.test-form').querySelector('.test-form__button')
+        if(!testFormIn.classList.contains('test-form__button--visible')) {
+          testFormIn.classList.add('test-form__button--visible')
+        }
+
+        if (window.innerWidth < 480) {
+          let btnInThisTestForm = this.closest('.test-form').querySelector('.test-form__button')
+          let btnInThisTestFormScrollOffset = btnInThisTestForm.offsetTop + btnInThisTestForm.offsetHeight - window.innerHeight + 40;
+          window.scrollTo({
+            top: btnInThisTestFormScrollOffset,
+            behavior: "smooth"
+          });
+        } else {
+          return
+        }
+      })
+    })
+  
+  // Функция для обработки клика
+  function removeActiveFormOtherItems(itemNotActive) {
+    // Получаем соседние элементы
+    var siblings = Array.from(itemNotActive.parentNode.children);
+  
+    // Удаляем класс "test-form__item--active" у соседних элементов
+    siblings.forEach(function(sibling) {
+      if (sibling !== itemNotActive) {
+        sibling.classList.remove('test-form__item--active');
+      }
+    }, itemNotActive);
+  }
+  
+  testFormBtn.forEach(function(elem) {
+    elem.addEventListener('click', function() {
+  
+      if(this.classList.contains('test-form__button--lego')) {
+        let parentTestBlock = this.closest('.test-block--active') 
+        parentTestBlock.classList.remove('test-block--active')
+        parentTestBlock.nextElementSibling.classList.add('test-block--active')
+      } else {
+        let activeItem = this.closest('.test-form').querySelector('.test-form__item--active')
+        let activeItemVariant = activeItem.getAttribute('data-variant')
+    
+        arrayAnswers.push(activeItemVariant)
+    
+        let parentTestBlock = this.closest('.test-block--active') 
+        parentTestBlock.classList.remove('test-block--active')
+    
+        if (parentTestBlock.nextElementSibling) {
+          parentTestBlock.nextElementSibling.classList.add('test-block--active')
+        } else {
+          resultBlock.classList.add('result-block--visible')
+          howMuchZnach(arrayAnswers)
+        }
+      }
+    })
+  })
+  
+  let howMuchZnach = function(array) {
+    // Создаем объект для отслеживания количества встреч каждого значения
+    let count = {};
+  
+    // Подсчитываем количество каждого значения в массиве
+    array.forEach(function(item) {
+      if (count[item]) {
+        count[item] += 1;
+      } else {
+        count[item] = 1;
+      }
+    });
+  
+    // Находим наибольшее количество встреч
+    let maxCount = 0;
+    let maxValue;
+    for (let item in count) {
+      if (count[item] > maxCount) {
+        maxCount = count[item];
+        maxValue = item;
+      }
+    }
+
+    resultBlock.querySelector('.result-open--' + maxValue).classList.add('result-open--visible')
+  }
+  
+  document.querySelector('.test-form__button--re').addEventListener('click', function() {
+    arrayAnswers.length = 0;
+    let testFormItemActive = document.querySelectorAll('.test-form__item--active')
+  
+    let parentTestBlock = this.closest('.result-block--visible') 
+    parentTestBlock.classList.remove('result-block--visible')
+  
+    let testFormFirstQuestion = document.querySelector('.test-block--1')
+    testFormFirstQuestion.classList.add('test-block--active')
+  
+    let resultBlockVisible = document.querySelector('.result-open--visible')
+    resultBlockVisible.classList.remove('result-open--visible')
+  
+    testFormItemActive.forEach(function(el) {
+      el.classList.remove('test-form__item--active')
+    })
+  })
+  
+    </script>
+  
